@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แปลงคะแนน GED เป็น GPAX</title>
+    <style>
+        body {
+            font-family: Roboto, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #FFCCFF;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #FF66FF;
+            font-style: italic;
+            font-weight: medium;
+        }
+        label, input, button {
+            display: block;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+        .contact {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1em;
+        }
+        .contact a {
+            color: #4caf50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .contact a:hover {
+            text-decoration: underline;
+        }
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    
+    <img src="image/logo.jpg" alt="PrimproudGED Logo" class="logo">
+    
+    <div class="container">
+        <h1>แปลงคะแนน GED เป็น GPAX</h1>
+        <h2>By PrimproudGED</h2>
+        <form id="gpaForm">
+            <label for="math">GED Math Score:</label>
+            <input type="number" id="math" name="math" placeholder="Enter Math score (145-200)" required>
+
+            <label for="science">GED Science Score:</label>
+            <input type="number" id="science" name="science" placeholder="Enter Science score (145-200)" required>
+
+            <label for="social">GED Social Studies Score:</label>
+            <input type="number" id="social" name="social" placeholder="Enter Social Studies score (145-200)" required>
+
+            <label for="rla">GED RLA Score:</label>
+            <input type="number" id="rla" name="rla" placeholder="Enter RLA score (145-200)" required>
+
+            <button type="button" onclick="calculateGPA()">Calculate GPA</button>
+        </form>
+
+        <div class="result" id="result"></div>
+    </div>
+    <div class="contact">
+        <p>มีคำถามเพิ่มเติม หรือต้องการปรึกษา สั่งซื้อชีทสรุป GED</p>
+        <p>แอดไลน์ <strong>@018paymi</strong> หรือ <a href="https://t.co/BnquK8Hgq7" target="_blank">คลิกที่นี่</a></p>
+    </div>
+
+    <script>
+        function calculateGPA() {
+            const math = parseFloat(document.getElementById('math').value);
+            const science = parseFloat(document.getElementById('science').value);
+            const social = parseFloat(document.getElementById('social').value);
+            const rla = parseFloat(document.getElementById('rla').value);
+
+            if (![math, science, social, rla].every(score => score >= 145 && score <= 200)) {
+                document.getElementById('result').textContent = "Please enter valid scores between 145 and 200.";
+                return;
+            }
+
+            const gpaMath = ((math - 50) / 150) * 4;
+            const gpaScience = ((science - 50) / 150) * 4;
+            const gpaSocial = ((social - 50) / 150) * 4;
+            const gpaRLA = ((rla - 50) / 150) * 4;
+            const gpax = (gpaMath + gpaScience + gpaSocial + gpaRLA) / 4;
+
+            document.getElementById('result').innerHTML = `
+                <strong>Results:</strong><br>
+                GPA Math: ${gpaMath.toFixed(2)}<br>
+                GPA Science: ${gpaScience.toFixed(2)}<br>
+                GPA Social Studies: ${gpaSocial.toFixed(2)}<br>
+                GPA RLA: ${gpaRLA.toFixed(2)}<br>
+                <strong>Overall GPAX: ${gpax.toFixed(2)}</strong>
+            `;
+        }
+    </script>
+</body>
+</html>
